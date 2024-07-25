@@ -1,9 +1,13 @@
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 
 function MainEmpty(): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
