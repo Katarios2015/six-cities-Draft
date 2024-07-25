@@ -1,14 +1,20 @@
-import PlaceCard from '../place-card/place-card';
+import CardsList from '../cards-list/cards-list';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
+import {Offers} from '../../types/offer-type';
 
 type MainProps = {
   cardsCount: number;
+  offers: Offers;
 }
 
-function MainPage({cardsCount}: MainProps): JSX.Element {
+function MainPage({cardsCount, offers}: MainProps): JSX.Element {
   return(
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -109,11 +115,7 @@ function MainPage({cardsCount}: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
-                <PlaceCard/>
+                <CardsList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

@@ -1,5 +1,6 @@
-import MainPage from '../main/main';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {HelmetProvider} from 'react-helmet-async';
+import MainPage from '../main/main';
 import {AppRoute} from './const';
 import {AuthorizationStatus} from '../private-route/const';
 import Favorite from '../favorite/favorite';
@@ -8,43 +9,51 @@ import Offer from '../offer/offer';
 import PrivateRoute from '../private-route/private-route';
 import NotFound from '../not-found/not-found';
 
+import {Offers} from '../../types/offer-type';
+//import {Reviews} from '../../types/review-type';
+
 
 type AppProps = {
   cardsCount: number;
+  offers: Offers;
+  favoriteOffers: Offers;
+  //reviews: Reviews;
 }
 
-function App({cardsCount}:AppProps) : JSX.Element {
+function App({cardsCount, offers, favoriteOffers}:AppProps) : JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={<MainPage cardsCount={cardsCount}/>}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={ <Login/>}
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute
-              status={AuthorizationStatus.Auth}
-            >
-              <Favorite/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Offer}
-          element={ <Offer/>}
-        />
-        <Route
-          path='*'
-          element={<NotFound/>}
-        />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path={AppRoute.Main}
+            element={<MainPage cardsCount={cardsCount} offers={offers}/>}
+          />
+          <Route
+            path={AppRoute.Login}
+            element={<Login/>}
+          />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute
+                status={AuthorizationStatus.Auth}
+              >
+                <Favorite favoriteOffers={favoriteOffers}/>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={AppRoute.Offer}
+            element={<Offer/>}
+          />
+          <Route
+            path='*'
+            element={<NotFound/>}
+          />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 
