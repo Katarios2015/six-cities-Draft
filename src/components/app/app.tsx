@@ -10,17 +10,17 @@ import PrivateRoute from '../private-route/private-route';
 import NotFound from '../not-found/not-found';
 
 import {Offers} from '../../types/offer-type';
-//import {Reviews} from '../../types/review-type';
+import {Reviews} from '../../types/review-type';
 
 
 type AppProps = {
   cardsCount: number;
   offers: Offers;
   favoriteOffers: Offers;
-  //reviews: Reviews;
+  reviews: Reviews;
 }
 
-function App({cardsCount, offers, favoriteOffers}:AppProps) : JSX.Element {
+function App({cardsCount, offers, favoriteOffers, reviews}:AppProps) : JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -44,8 +44,8 @@ function App({cardsCount, offers, favoriteOffers}:AppProps) : JSX.Element {
             }
           />
           <Route
-            path={AppRoute.Offer}
-            element={<Offer/>}
+            path={`${AppRoute.Offer}/:id`}
+            element={<Offer reviews={reviews}/>}
           />
           <Route
             path='*'
