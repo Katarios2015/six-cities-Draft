@@ -2,10 +2,20 @@ import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import ReviewForm from '../review-form/review-form';
-import {reviews} from '../../mocks/reviews';
 import {getStarsStyle} from '../place-card/const';
 
-function Offer(): JSX.Element {
+import {Reviews} from '../../types/review-type';
+
+//import {useParams} from 'react-router-dom';
+
+type OfferProps = {
+  reviews: Reviews;
+}
+
+function Offer({reviews}:OfferProps): JSX.Element {
+  //const params = useParams();
+  //console.log(params);
+
   return (
     <div className="page">
       <Helmet>
