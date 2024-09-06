@@ -45,7 +45,7 @@ function App({cardsCount, offers, favoriteOffers, reviews}:AppProps) : JSX.Eleme
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<Offer reviews={reviews}/>}
+            element={<Offer reviews={reviews} offers={offers}/>}
           />
           <Route
             path='*'
