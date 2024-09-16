@@ -30,7 +30,7 @@ export const offers:Offer[] = [
     type: 'room',
     price: 150,
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -53,7 +53,7 @@ export const offers:Offer[] = [
     type: 'house',
     price: 220,
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
@@ -76,7 +76,7 @@ export const offers:Offer[] = [
     type: 'hotel',
     price: 120,
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
