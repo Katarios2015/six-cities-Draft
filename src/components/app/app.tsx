@@ -1,6 +1,7 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import MainPage from '../main/main';
+import MainEmpty from '../main-empty/main-empty';
 import {AppRoute} from './const';
 import {AuthorizationStatus} from '../private-route/const';
 import Favorite from '../favorite/favorite';
@@ -12,22 +13,25 @@ import NotFound from '../not-found/not-found';
 import {Offers} from '../../types/offer-type';
 import {Reviews} from '../../types/review-type';
 
+import {useAppSelector} from '../../hooks/index';
 
 type AppProps = {
-  cardsCount: number;
+  //cardsCount: number;
   offers: Offers;
   favoriteOffers: Offers;
   reviews: Reviews;
+  cities: string[];
 }
 
-function App({cardsCount, offers, favoriteOffers, reviews}:AppProps) : JSX.Element {
+function App({offers, favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
+  const actualOffers = useAppSelector((state)=>state.offers);
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage cardsCount={cardsCount} offers={offers}/>}
+            element={actualOffers.length > 0 ? <MainPage cities={cities}/> : <MainEmpty cities={cities}/>}
           />
           <Route
             path={AppRoute.Login}

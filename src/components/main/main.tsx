@@ -3,20 +3,29 @@ import CardsList from '../cards-list/cards-list';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {Offer, Offers} from '../../types/offer-type';
-import {CITIES} from '../main/const';
+//import {Offer, Offers} from '../../types/offer-type';
+import {Offer} from '../../types/offer-type';
+import CitiesList from '../cities-list/cities-list';
 import Map from '../map/map';
 
+import {useAppSelector} from '../../hooks/index';
+
+
 type MainProps = {
-  cardsCount: number;
-  offers: Offers;
+  //cardsCount: number;
+  //offers: Offers;
+  cities: string[];
 }
 
-function MainPage({cardsCount, offers}: MainProps): JSX.Element {
+function MainPage({cities}: MainProps): JSX.Element {
 
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
   );
+  const offers = useAppSelector((state)=>state.offers);
+  const actualCity = useAppSelector((state) => state.city);
+
+  const cardsCount = offers.length;
 
   const handleListItemHover = (listItemId: string) => {
     const currentPin = offers.find((offer) => offer.id === listItemId);
@@ -66,24 +75,14 @@ function MainPage({cardsCount, offers}: MainProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {
-                CITIES.map((city)=>(
-                  <li key={city} className="locations__item">
-                    <Link className="locations__item-link tabs__item" to="#">
-                      <span>{city}</span>
-                    </Link>
-                  </li>
-                ))
-              }
-            </ul>
+            <CitiesList cities={cities}/>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{cardsCount} places to stay in Amsterdam</b>
+              <b className="places__found">{cardsCount} places to stay in {actualCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -120,6 +119,7 @@ function MainPage({cardsCount, offers}: MainProps): JSX.Element {
                   mapWidth = {'auto'}
                   mapHeight = {'100%'}
                   mapMargin ={'auto'}
+                  actualCity = {actualCity}
                 />
               </section>
             </div>
