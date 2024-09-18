@@ -1,5 +1,4 @@
 import {Link} from 'react-router-dom';
-//import {useState} from 'react';
 import {AppRoute} from '../app/const';
 import {Offer} from '../../types/offer-type';
 import {getStarsStyle} from './const';
@@ -8,8 +7,6 @@ import {useAppDispatch} from '../../hooks/index';
 import {hoverOffer} from '../../store/action';
 type PropPlaceCard = {
   offer: Offer;
-  //onListItemHover: (listItemId: string) => void;
-  //onListItemOut: () => void;
 }
 
 
