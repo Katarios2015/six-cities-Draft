@@ -1,19 +1,13 @@
 import {offers} from '../../mocks/offers';
 import {createReducer} from '@reduxjs/toolkit';
-import {selectCity, loadOffers} from '../action';
-import {Offers} from '../../types/offer-type';
-
-const getOffersByCity = (city:string):Offers=>{
-  const offersByCity = offers.filter((offer)=>
-    offer.city.name === city);
-  return offersByCity;
-};
-
-const INITIAL_CITY = 'Paris';
+import {selectCity, loadOffers, sortOffers, hoverOffer} from '../action';
+import {INITIAL_CITY, INITIAL_SORT} from './const';
 
 const initialState = {
   city: INITIAL_CITY,
-  offers: getOffersByCity(INITIAL_CITY),
+  offers,
+  sort: INITIAL_SORT,
+  activeOffer: ''
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,7 +17,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(selectCity, (state, action) => {
       state.city = action.payload;
-      state.offers = getOffersByCity(action.payload);
+    })
+    .addCase(sortOffers, (state, action) => {
+      state.sort = action.payload;
+    })
+    .addCase(hoverOffer, (state, action) => {
+      state.activeOffer = action.payload;
     });
 });
 
