@@ -7,9 +7,7 @@ import Map from '../map/map';
 import CardsList from '../cards-list/cards-list';
 import {Reviews} from '../../types/review-type';
 import {Offers} from '../../types/offer-type';
-
-import {useAppSelector} from '../../hooks/index';
-//import {useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 type OfferProps = {
   reviews: Reviews;
@@ -19,10 +17,9 @@ type OfferProps = {
 
 function Offer(props:OfferProps): JSX.Element {
   const {reviews, offers, actualCity} = props;
-  //const params = useParams();
-  //console.log(params);
+  const params = useParams();
   const offersNear = offers.slice(0,3);
-  const activeOffer = useAppSelector((state) => state.activeOffer);
+  const activeOffer = params.id;
   const selectedOffer = offers.find((offer) => offer.id === activeOffer);
   return (
     <div className="page">
