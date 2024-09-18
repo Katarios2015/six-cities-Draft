@@ -1,4 +1,3 @@
-//import {useState} from 'react';
 import CardsList from '../cards-list/cards-list';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
@@ -19,11 +18,6 @@ type MainProps = {
 }
 
 function MainPage({cities, sortTypes, actualCity, offers}: MainProps): JSX.Element {
-
-  /*const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
-    undefined
-  );*/
-
   const actualSort = useAppSelector((state) => state.sort);
   const filtredOffers = getSortedOffers(getOffersByCity(actualCity, offers),actualSort);
 
