@@ -1,34 +1,32 @@
 import {Link} from 'react-router-dom';
-import {useState} from 'react';
+//import {useState} from 'react';
 import {AppRoute} from '../app/const';
 import {Offer} from '../../types/offer-type';
 import {getStarsStyle} from './const';
 import {MouseEvent} from 'react';
-
+import {useAppDispatch} from '../../hooks/index';
+import {hoverOffer} from '../../store/action';
 type PropPlaceCard = {
   offer: Offer;
-  onListItemHover: (listItemId: string) => void;
-  onListItemOut: () => void;
+  //onListItemHover: (listItemId: string) => void;
+  //onListItemOut: () => void;
 }
 
 
 function PlaceCard(props: PropPlaceCard): JSX.Element {
 
-  const {offer, onListItemHover, onListItemOut} = props;
+  const {offer} = props;
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
-
-  const [, setActiveCard] = useState({});
+  const dispatch = useAppDispatch();
 
   function handleMouseOver(event: MouseEvent<HTMLLIElement>) {
-    setActiveCard(offer);
     event.preventDefault();
     if(event.currentTarget.dataset.id) {
-      onListItemHover(event.currentTarget.dataset.id);
+      dispatch(hoverOffer(event.currentTarget.dataset.id));
     }
   }
   function handleMouseOut() {
-    setActiveCard({});
-    onListItemOut();
+    dispatch(hoverOffer(''));
   }
 
   return (

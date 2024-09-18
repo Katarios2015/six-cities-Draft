@@ -16,22 +16,23 @@ import {Reviews} from '../../types/review-type';
 import {useAppSelector} from '../../hooks/index';
 
 type AppProps = {
-  //cardsCount: number;
   offers: Offers;
   favoriteOffers: Offers;
   reviews: Reviews;
   cities: string[];
+  sortTypes: string[];
 }
 
-function App({offers, favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
+function App({offers, favoriteOffers, reviews, cities, sortTypes}:AppProps) : JSX.Element {
   const actualOffers = useAppSelector((state)=>state.offers);
+  const actualCity = useAppSelector((state) => state.city);
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={actualOffers.length > 0 ? <MainPage cities={cities}/> : <MainEmpty cities={cities}/>}
+            element={actualOffers.length > 0 ? <MainPage cities={cities} sortTypes={sortTypes} actualCity={actualCity} offers={actualOffers}/> : <MainEmpty cities={cities}/>}
           />
           <Route
             path={AppRoute.Login}
@@ -49,7 +50,7 @@ function App({offers, favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<Offer reviews={reviews} offers={offers}/>}
+            element={<Offer reviews={reviews} offers={offers} actualCity={actualCity}/>}
           />
           <Route
             path='*'

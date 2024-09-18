@@ -1,40 +1,36 @@
-import {useState} from 'react';
+//import {useState} from 'react';
 import CardsList from '../cards-list/cards-list';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-//import {Offer, Offers} from '../../types/offer-type';
-import {Offer} from '../../types/offer-type';
+import {/*Offer, */Offers} from '../../types/offer-type';
 import CitiesList from '../cities-list/cities-list';
 import Map from '../map/map';
-
+import Sort from '../sort/sort';
 import {useAppSelector} from '../../hooks/index';
 
+import {getOffersByCity, getSortedOffers} from '../main/common';
 
 type MainProps = {
-  //cardsCount: number;
-  //offers: Offers;
   cities: string[];
+  sortTypes: string[];
+  actualCity: string;
+  offers: Offers;
 }
 
-function MainPage({cities}: MainProps): JSX.Element {
+function MainPage({cities, sortTypes, actualCity, offers}: MainProps): JSX.Element {
 
-  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
+  /*const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
     undefined
-  );
-  const offers = useAppSelector((state)=>state.offers);
-  const actualCity = useAppSelector((state) => state.city);
+  );*/
 
-  const cardsCount = offers.length;
+  const actualSort = useAppSelector((state) => state.sort);
+  const filtredOffers = getSortedOffers(getOffersByCity(actualCity, offers),actualSort);
 
-  const handleListItemHover = (listItemId: string) => {
-    const currentPin = offers.find((offer) => offer.id === listItemId);
-    setSelectedOffer(currentPin);
-  };
+  const cardsCount = filtredOffers.length;
 
-  const handleListItemOut = () => {
-    setSelectedOffer(undefined);
-  };
+  const activeOffer = useAppSelector((state) => state.activeOffer);
+  const selectedOffer = filtredOffers.find((offer) => offer.id === activeOffer);
 
   return(
     <div className="page page--gray page--main">
@@ -82,40 +78,15 @@ function MainPage({cities}: MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{cardsCount} places to stay in {actualCity}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                Popular
-                  <svg className="places__sorting-arrow" width={7} height={4}>
-                    <use xlinkHref="#icon-arrow-select" />
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li
-                    className="places__option places__option--active"
-                    tabIndex={0}
-                  >
-                  Popular
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                  Price: low to high
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                  Price: high to low
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                  Top rated first
-                  </li>
-                </ul>
-              </form>
+              <b className="places__found">{cardsCount} {cardsCount > 1 ? 'places' : 'place'} to stay in {actualCity}</b>
+              <Sort sortTypes={sortTypes}/>
               <div className="cities__places-list places__list tabs__content">
-                <CardsList offers={offers} onListItemHover={handleListItemHover} onListItemOut={handleListItemOut}/>
+                <CardsList offers={filtredOffers}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" >
-                <Map offers={offers} selectedOffer={selectedOffer}
+                <Map offers={filtredOffers} selectedOffer={selectedOffer}
                   mapWidth = {'auto'}
                   mapHeight = {'100%'}
                   mapMargin ={'auto'}
