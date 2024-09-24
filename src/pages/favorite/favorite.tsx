@@ -1,4 +1,4 @@
-import Logo from '../logo/logo';
+import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {Offers} from '../../types/offer-type';
