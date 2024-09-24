@@ -1,11 +1,11 @@
-import CardsList from '../cards-list/cards-list';
-import Logo from '../logo/logo';
+import CardsList from '../../components/cards-list/cards-list';
+import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {/*Offer, */Offers} from '../../types/offer-type';
-import CitiesList from '../cities-list/cities-list';
-import Map from '../map/map';
-import Sort from '../sort/sort';
+import CitiesList from '../../components/cities-list/cities-list';
+import Map from '../../components/map/map';
+import Sort from '../../components/sort/sort';
 import {useAppSelector} from '../../hooks/index';
 
 import {getOffersByCity, getSortedOffers} from '../main/common';
@@ -23,8 +23,8 @@ function MainPage({cities, sortTypes, actualCity, offers}: MainProps): JSX.Eleme
 
   const cardsCount = filtredOffers.length;
 
-  const activeOffer = useAppSelector((state) => state.activeOffer);
-  const selectedOffer = filtredOffers.find((offer) => offer.id === activeOffer);
+  const activeOfferId = useAppSelector((state) => state.activeOfferId);
+  const selectedOffer = filtredOffers.find((offer) => offer.id === activeOfferId);
 
   return(
     <div className="page page--gray page--main">

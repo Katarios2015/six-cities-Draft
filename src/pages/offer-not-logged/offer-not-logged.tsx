@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import Logo from '../logo/logo';
+import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 
 function OfferNotLogged(): JSX.Element {

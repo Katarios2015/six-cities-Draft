@@ -1,11 +1,9 @@
-import Logo from '../logo/logo';
+import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import CitiesList from '../cities-list/cities-list';
+import CitiesList from '../../components/cities-list/cities-list';
 
 type MainProps = {
-  //cardsCount: number;
-  //offers: Offers;
   cities: string[];
 }
 

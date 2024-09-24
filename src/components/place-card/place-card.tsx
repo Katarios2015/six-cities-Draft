@@ -79,7 +79,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">
+          <Link to={`${AppRoute.Offer}/${id}`}>
             {title}
           </Link>
         </h2>
