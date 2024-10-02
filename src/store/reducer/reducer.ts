@@ -1,7 +1,6 @@
-//import {offers} from '../../mocks/offers';
 import {Offers} from '../../types/offer-type';
 import {createReducer} from '@reduxjs/toolkit';
-import {selectCity, loadOffers, sortOffers, hoverOffer, checkAuthorization, setError, setOffersLoadingStatus} from '../action';
+import {selectCity, loadOffers, sortOffers, hoverOffer, checkAuthorization, setError, setOffersLoadingStatus, login} from '../action';
 import {INITIAL_CITY, INITIAL_SORT} from './const';
 import {AuthorizationStatus} from '../../components/private-route/const';
 
@@ -14,6 +13,7 @@ type InitalState = {
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isOffersLoading: boolean;
+  user: string;
 }
 
 const initialState:InitalState = {
@@ -21,9 +21,10 @@ const initialState:InitalState = {
   offers: [],
   sort: INITIAL_SORT,
   activeOfferId: '',
-  authorizationStatus: AuthorizationStatus.Auth,
+  authorizationStatus: AuthorizationStatus.NoAuth,
   error: null,
-  isOffersLoading: false
+  isOffersLoading: false,
+  user:''
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -48,6 +49,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersLoadingStatus, (state, action) => {
       state.isOffersLoading = action.payload;
+    })
+    .addCase(login, (state, action) => {
+      state.user = action.payload;
     });
 });
 
