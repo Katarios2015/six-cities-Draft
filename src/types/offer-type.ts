@@ -21,4 +21,7 @@ export type Offer = {
   rating: number;
   previewImage: string;
   }
+export type Login = {
+    email:string;
+  }
 export type Offers= Offer[];

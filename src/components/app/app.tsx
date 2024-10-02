@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import MainPage from '../../pages/main/main';
 import MainEmpty from '../../pages/main-empty/main-empty';
@@ -13,6 +13,9 @@ import Loading from '../../pages/loading/loading';
 import {Offers} from '../../types/offer-type';
 import {Reviews} from '../../types/review-type';
 
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
+
 import {useAppSelector} from '../../hooks/index';
 
 type AppProps = {
@@ -25,16 +28,16 @@ type AppProps = {
 function App({favoriteOffers, reviews, cities, sortTypes}:AppProps) : JSX.Element {
   const actualOffers = useAppSelector((state)=>state.offers);
   const actualCity = useAppSelector((state) => state.city);
-  //const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
-  if (/*authorizationStatus === AuthorizationStatus.Unknown ||*/ isOffersLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return (
       <Loading />
     );
   }
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -48,7 +51,7 @@ function App({favoriteOffers, reviews, cities, sortTypes}:AppProps) : JSX.Elemen
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                status={AuthorizationStatus.Auth}
+                status={authorizationStatus}
               >
                 <Favorite favoriteOffers={favoriteOffers}/>
               </PrivateRoute>
@@ -63,7 +66,7 @@ function App({favoriteOffers, reviews, cities, sortTypes}:AppProps) : JSX.Elemen
             element={<NotFound/>}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
