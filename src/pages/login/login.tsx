@@ -3,17 +3,14 @@ import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 
 import {useRef, FormEvent} from 'react';
-//import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
-import {login} from '../../store/action';
 import {AppRoute} from '../../components/app/const';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  //const navigate = useNavigate();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -22,7 +19,6 @@ function Login(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value
       }));
-      //dispatch(login(loginRef.current.value));
     }
   };
   return (
