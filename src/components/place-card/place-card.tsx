@@ -5,6 +5,8 @@ import {getStarsStyle} from './const';
 import {MouseEvent} from 'react';
 import {useAppDispatch} from '../../hooks/index';
 import {hoverOffer} from '../../store/action';
+
+
 type PropPlaceCard = {
   offer: Offer;
 }
@@ -26,6 +28,10 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
     dispatch(hoverOffer(''));
   }
 
+  /*function handlePlaceCardClick() {
+    dispatch(fetchOfferAction(id));
+    //store.dispatch(fetchOfferAction(id));
+  }*/
   return (
     <article
       className="cities__card place-card"
@@ -79,7 +85,10 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`}>
+          <Link
+            to={`${AppRoute.Offer}/${id}`}
+            /*onClick={handlePlaceCardClick}*/
+          >
             {title}
           </Link>
         </h2>
